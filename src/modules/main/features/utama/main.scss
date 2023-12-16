@@ -1,0 +1,85 @@
+@import '../../../../assets/fonts/font_custom.scss';
+
+::-webkit-scrollbar {
+    width:10px;
+}
+::-webkit-scrollbar-track {
+    background-color: rgb(226 232 240 / 1);
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(rgb(86, 197, 182), rgb(150, 226, 215), rgb(86, 197, 182));
+    &:hover{
+        background: linear-gradient(rgb(86, 197, 129), rgb(193, 226, 150), rgb(86, 197, 129));
+    }
+}
+
+.main-page-wrapper {
+
+    height:100%;
+    
+    .sub-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+
+        .pre-title-submenu {
+            padding: 0px 24px;
+            margin-top:8px;
+            margin-bottom: 8px;
+            p {
+                color:rgb(126, 149, 175);
+                margin:0;
+                letter-spacing: 1px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                font-size: 13px;
+                font-weight: 600;
+                line-height: 18px;
+                font-family: 'Poppins', 'Roboto', sans-serif;
+            }
+        }
+
+        //font level 0
+        
+        //semua level
+        // .ps-menu-label {
+        //     // label MenuItem
+        // }
+        .submenu-custom {
+            font-family: 'Titillium_Web_Regular','Comic Sans ms';
+        }
+
+
+        .side-left {
+            // border:1px solid red;
+            width: 250px;
+            background-color: rgb(249,249,249,0.7);
+            overflow: auto;   
+            // padding-right: 5px;
+
+            // side left sub
+            &::-webkit-scrollbar {
+                width:4px;
+            }
+            &::-webkit-scrollbar-track {
+                // background-color: rgb(241, 241, 241);
+                background-color: rgb(226 232 240 / 1);
+            }
+            &::-webkit-scrollbar-thumb {
+                background: linear-gradient(rgb(86, 197, 182), rgb(150, 226, 215), rgb(86, 197, 182));
+            }
+
+        }
+        .side-right {
+            width:100%;
+            overflow: auto;
+            
+        }
+
+    
+        nav.ps-menu-root {
+            height:100%;
+        }
+
+    }
+}
