@@ -33,7 +33,7 @@ const MainPage = () => {
             scope:''
           })
       }catch(err){
-        console.log('error ini')
+        // console.log('error ini')
       }
     }
 

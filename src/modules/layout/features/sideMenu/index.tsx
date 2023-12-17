@@ -11,6 +11,7 @@ const SideMenu = () => {
   const [user, setUser] = useState('');
   const [statusLogin, setStatusLogin] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showModalBuat, setShowModalBuat] = useState(false);
 
   useEffect(()=>{
       if (!statusLogin){
@@ -23,6 +24,19 @@ const SideMenu = () => {
   }
   const handleCloseModal = () => {
       setShowModal(false)
+  }
+  const handleCloseModalBuat = () => {
+      setShowModalBuat(false)
+  }
+
+  const handleClickMasuk = (event) => {
+    event?.preventDefault();
+  }
+
+  const handleClickBuat = (event) => {
+    setShowModal(false);
+    setShowModalBuat(true);
+    event?.preventDefault();
   }
 
   return (
@@ -128,6 +142,7 @@ const SideMenu = () => {
             </div>
         </div>
 
+{/* MODAL MASUK */}
         <Modal show={showModal} centered={false} onHide={handleCloseModal}>
             <ModalHeader closeButton>
                 <ModalTitle> 
@@ -139,14 +154,14 @@ const SideMenu = () => {
                 <Form>
                     <FormGroup controlId='formbasicUsername'>
                         <FormLabel>Username / Email</FormLabel>
-                        <FormControl type="text" maxLength={50} placeholder='Enter User'></FormControl>
+                        <FormControl type="text" name='name-user-masuk' maxLength={50} placeholder='Enter User'></FormControl>
                     </FormGroup>
                     <FormGroup controlId='formbasicPassword'>
                         <FormLabel>Password</FormLabel>
-                        <FormControl type="password" maxLength={50} placeholder='Enter Password'></FormControl>
+                        <FormControl type="password" name='name-password-masuk' maxLength={50} placeholder='Enter Password'></FormControl>
                     </FormGroup>
                     <div className='mt-4'>
-                        <button className='btn btn-primary-custom btn-block'>Masuk</button>
+                        <button className='btn btn-primary-custom btn-block' onClick={(event)=>handleClickMasuk(event)}>Masuk</button>
                     </div>
 
                     <div className='buatuser mt-4'>
@@ -155,8 +170,40 @@ const SideMenu = () => {
                     </div>
 
                     <div className='mt-4'>
-                        <button className='btn btn-info btn-block'>Buat User</button>
+                        <button className='btn btn-info btn-block' onClick={(event)=>handleClickBuat(event)}>Buat User</button>
                     </div>
+                </Form>
+
+            </ModalBody>
+            <ModalFooter>
+
+            </ModalFooter>
+        </Modal>
+
+
+{/* MODAL BUAT USER */}
+
+        <Modal show={showModalBuat} centered={false} backdrop='static' onHide={handleCloseModalBuat}>
+            <ModalHeader closeButton>
+                <ModalTitle> 
+                    <div className='modal-title'>Buat User </div>
+                </ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+                
+                <Form>
+                    <FormGroup controlId='formbasicUsername'>
+                        <FormLabel>Username / Email</FormLabel>
+                        <FormControl type="text" name='name-user-baru' maxLength={50} placeholder='Enter User'></FormControl>
+                    </FormGroup>
+                    <FormGroup controlId='formbasicPassword'>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl type="password" name='name-password-baru' maxLength={50} placeholder='Enter Password'></FormControl>
+                    </FormGroup>
+                    <div className='mt-4'>
+                        <button className='btn btn-primary-custom btn-block' onClick={(event)=>handleClickMasuk(event)}>Buat</button>
+                    </div>
+
                 </Form>
 
             </ModalBody>
