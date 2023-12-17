@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { IMenu } from '../models/CommonModel';
 import { RootStoreContext } from '../stores/RootStore';
-import history from '../utils/history'
+// import history from '../utils/history'
 import { Link } from 'react-router-dom';
 import { decryptData } from '../utils/encrypt';
 
@@ -69,7 +69,7 @@ const Menu = () => {
     function onClickLogout(){
         logout();
 
-        history.push('/');
+        // history.push('/');
         window.location.reload();
     }
 

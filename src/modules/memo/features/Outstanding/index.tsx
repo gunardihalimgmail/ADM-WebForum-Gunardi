@@ -3,7 +3,8 @@ import swal from "sweetalert";
 import { Modal, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { getBagianName, getIdDivisi, getIdLogin, getIdUnitUsaha, getUserAccess } from "../../../../utils/loginuseraccess";
 import SyncLoader from "react-spinners/SyncLoader";
-import { Link, Redirect, useLocation } from "react-router-dom";
+// import { Link, Redirect, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { encryptData } from "../../../../utils/encrypt";
 import { MemoRootStoreContext } from "../../stores/MemoRootStore";
 import { ListDokumenResult } from "../../models/MemoModel";
@@ -221,7 +222,7 @@ const OutstandingMemo = () => {
                 {
                     linkToDetailIOM ?
                         <>
-                            return <Redirect push
+                            {/* return <Redirect push
                                 to={{
                                     pathname: "/memo/detail/detailmemo",
                                     // state: {
@@ -229,23 +230,23 @@ const OutstandingMemo = () => {
                                     //     // pidj: IdJenisDokumenMask
                                     // }
                                 }}
-                            />
+                            /> */}
                         </> : <></>
                 }
 
                 {
-                    linkToDetailPengajuan ?
-                        <>
-                            return <Redirect push
-                                to={{
-                                    pathname: "/memo/detail/detailpengajuan",
-                                    // state: {
-                                    //     pidd: IdDokumen,
-                                    //     // pidj: IdJenisDokumenMask
-                                    // }
-                                }}
-                            />
-                        </> : <></>
+                    // linkToDetailPengajuan ?
+                    //     <>
+                    //         return <Redirect push
+                    //             to={{
+                    //                 pathname: "/memo/detail/detailpengajuan",
+                    //                 // state: {
+                    //                 //     pidd: IdDokumen,
+                    //                 //     // pidj: IdJenisDokumenMask
+                    //                 // }
+                    //             }}
+                    //         />
+                    //     </> : <></>
                 }
             </div>
 

@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { IResponse } from "../../../models/CommonModel";
-import history from "../../../utils/history";
+// import history from "../../../utils/history";
 
 const memoAxios = axios.create({
   baseURL: "http://192.168.1.121:9012/api/",
@@ -15,7 +15,7 @@ const memoAxios = axios.create({
 memoAxios.interceptors.response.use(undefined, (error) => {
   if (error.message === "Network Error" && !error.response) {
     alert("Network error - make sure Memo API is running!");
-    history.push("");
+    // history.push("");
     window.location.reload();
   }
 

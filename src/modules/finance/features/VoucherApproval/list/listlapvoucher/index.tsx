@@ -7,7 +7,7 @@ import { IVouApv } from "../../../../models/LaporanVoucherModel";
 import { FinanceRootStoreContext } from "../../../../stores/FinanceRootStore";
 import { getIdLogin, getUserAccess } from "../../../../../../utils/loginuseraccess";
 
-import history from '../../../../../../utils/history';
+// import history from '../../../../../../utils/history';
 
 const List = () => {
     const modulname = 'finance'; // Data harus sama dengan yg ada di Ms_Module AppRole
@@ -66,7 +66,7 @@ const List = () => {
     }
 
     function onClickLogout(){
-        history.push('#/finance/approval/apvlapvoucher?id=${supplier.id}');
+        // history.push('#/finance/approval/apvlapvoucher?id=${supplier.id}');
         window.location.reload();
     }
 

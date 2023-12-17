@@ -3,7 +3,8 @@ import { Form, Field } from "react-final-form";
 import history from '../utils/history';
 import { RootStoreContext } from '../stores/RootStore';
 import Alert from '../utils/alert';
-import { Link, useHistory } from 'react-router-dom';
+// import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './loginPage.scss'
 import ImgBoyWithRocketLight from '../assets/img/boy-with-rocket-light.png'
 import { error } from 'console';
@@ -37,7 +38,8 @@ const Login = () => {
 		'email': false
 	});
 
-	const history = useHistory();
+	// const history = useHistory();
+	const history = useNavigate();
 
 
 	useEffect(() => {
@@ -142,7 +144,8 @@ const Login = () => {
 			}
 
 			// kondisi berhasil login
-			history.push("/main");
+			// history.push("/main");
+			history("/main");
 
 		}
 		else if (form == 'forgot')

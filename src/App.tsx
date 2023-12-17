@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Router, Route, Switch, Redirect, HashRouter, BrowserRouter } from "react-router-dom";
+// import { Router, Route, Switch, Redirect, HashRouter, BrowserRouter } from "react-router-dom";
+import { Router, Route, HashRouter, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import Login from "./login";
 import MainPage from "./modules/main/features/utama"
 import Footer from "./layout/Footer";
@@ -9,7 +10,7 @@ import Menu from "./layout/Menu";
 import modules from "./modules";
 import { RootStoreContext } from "./stores/RootStore";
 import Home from "./login/home";
-import { createBrowserHistory } from "history";
+// import { createBrowserHistory } from "history";
 import PASPeriodeLalu from "./modules/agronomi/features/periodelalu";
 import PASHistory from "./modules/agronomi/features/history";
 import DetailProblemKebun from "./modules/agronomi/features/detail";
@@ -17,8 +18,10 @@ import UbahPassword from "./login/changepassword";
 import DetailIOM from "./modules/memo/features/Detail/IOM";
 import DetailPengajuan from "./modules/memo/features/Detail/Pengajuan";
 import './App.css'
+import PostThread from "./modules/layout/features/postThread";
+import { gapi } from "gapi-script";
 
-export const appHistory = createBrowserHistory();
+// export const appHistory = createBrowserHistory();
 
 
 
@@ -50,16 +53,31 @@ function App() {
 
     <div className="div-utama">
 
-      <BrowserRouter>
+      {/* <BrowserRouter> */}
+      <Routes>
+            {/* <Route index element = {<Navigate to="/"}></Route> */}
+            {/* <Route index element path="/"></Route> */}
+
+            <Route path = "/" element={<MainPage />}>
+            {/* <Route path = "/"> */}
+                {/* <Route index element={<Navigate to="/main" />} /> */}
+                {/* <Route path="/main" element={<MainPage />}> */}
+                {/* <Route index element={<MainPage />}> */}
+                    <Route path="child1" element={<PostThread />} />
+                {/* </Route> */}
+
+            </Route>
+
+      </Routes>
+
           {/* <Route exact path="/" component={Login} /> */}
-          <Route exact path="/" component={MainPage} />
 
           {/* <Route exact path = "/" component = {MainPage} /> */}
           {/* {modules.map((module)=>(
               // <Route {...module.routeProps} key = {module.name} />
               <Route {...module} key = {module.name} />
           ))} */}
-      </BrowserRouter>
+      {/* </BrowserRouter> */}
       
       {/* {
         authenticated ?

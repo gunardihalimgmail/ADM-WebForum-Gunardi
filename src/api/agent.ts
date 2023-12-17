@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { IResponse } from "../models/CommonModel";
-import history from "../utils/history";
+// import history from "../utils/history";
 
 const authenticationAxios = axios.create({
   baseURL: "http://192.168.1.121:9006/api/",
@@ -13,7 +13,7 @@ const authenticationAxios = axios.create({
 axios.interceptors.response.use(undefined, (error) => {
   if (error.message === "Network Error" && !error.response) {
     alert("Network error - make sure Authentication API is running!");
-    history.push("");
+    // history.push("");
     window.location.reload();
   }
 

@@ -8,7 +8,7 @@ import { getIdLogin, getUserAccess } from "../../../../../../utils/loginuseracce
 import { RootStoreContext } from "../../../../../../stores/RootStore";
 
 import { useLocation } from "react-router-dom";
-import history from '../../../../../../utils/history';
+// import history from '../../../../../../utils/history';
 import { title } from "process";
 import { isLineBreak } from "typescript";
 
@@ -126,7 +126,7 @@ const Approval = () => {
     }
 
     function onClickKembali(){
-        history.push('#/finance/list/listlapvoucher/');
+        // history.push('#/finance/list/listlapvoucher/');
         window.location.reload();
     }
     

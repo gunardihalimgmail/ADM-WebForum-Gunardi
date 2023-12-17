@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { IResponse } from "../../../models/CommonModel";
-import history from "../../../utils/history";
+// import history from "../../../utils/history";
 
 const agronomiAxios = axios.create(
     {
@@ -17,7 +17,7 @@ const agronomiAxios = axios.create(
 agronomiAxios.interceptors.response.use(undefined, error => {
     if (error.message === 'Network Error' && !error.response) {
        alert('Network error - make sure Agronomi API is running!')
-       history.push('');
+      //  history.push('');
        window.location.reload();
     }
 

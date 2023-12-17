@@ -7,7 +7,8 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 import { Field, Form } from "react-final-form";
 import React from "react";
 import ButtonLoader from "../../../../../component/button/buttonloader";
-import { Link, Redirect } from "react-router-dom";
+// import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Select from 'react-select';
 import Alert from "../../../../../utils/alert";
 import { IJenisDokumen, ListDokumenResult, SelectListOptions, statusDokumenOptions } from "../../../models/MemoModel";
@@ -432,7 +433,7 @@ const ListMemo = () => {
                 {
                     linkToDetail ?
                         <>
-                            return <Redirect push
+                            {/* return <Redirect push
                                 to={{
                                     pathname: "/memo/detail/detailmemo",
                                     state: {
@@ -440,7 +441,7 @@ const ListMemo = () => {
                                         // pidj: IdJenisDokumenMask
                                     }
                                 }}
-                            />
+                            /> */}
                         </> : <></>
                 }
             </div>

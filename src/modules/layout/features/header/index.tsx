@@ -11,9 +11,9 @@ const HeaderMain = (props:any) => {
                 <div className='blok-nav'>
                     <div className='label-menu'>
 
-                        <HamburgerMenu />
+                        {/* <HamburgerMenu /> */}
 
-                        <div className='text title'>Dashboard</div>
+                        <div className='text title'>Komunitas Populer</div>
                     </div>
                 </div>
             </nav>

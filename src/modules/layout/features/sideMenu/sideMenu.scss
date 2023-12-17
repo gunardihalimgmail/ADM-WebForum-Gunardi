@@ -26,7 +26,7 @@
     justify-content: start;
     align-items: center;
     margin-top: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
     padding-left:24px;
     
     .logo-title {
@@ -44,12 +44,12 @@
     }
 
     .logo-subtitle {
-        margin:0;
-        padding:0;
+        margin:0px;
+        padding:0px;
         color: rgb(0, 152, 229);
         font-size: 20px;
         font-weight: 700;
-        margin-left: 10px;
+        margin-left: 3px;
     }
 }
 
@@ -85,4 +85,75 @@
             width: 100%;
         }
     }
+}
+
+
+
+.signin-title {
+  display: flex;
+  justify-content: center;
+  color:cadetblue;
+  text-decoration: underline;
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 35px;
+
+  &:hover {
+    color: darkviolet;
+    cursor: pointer;
+  }
+}
+
+.modal-header {
+  border-bottom: 0;
+}
+.modal-title {
+  color: rgb(0 130 198);
+  font-size: 1.5rem;
+}
+.modal-footer {
+  border-top:0;
+}
+
+.form-group {
+  .form-label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+}
+
+.btn-primary-custom {
+  background-color: rgb(0 130 198);
+  color:#fff;
+
+  &:hover {
+      color:#fff;
+      background-color: rgb(0, 91, 139);
+  }
+}
+
+.buatuser {
+  display: flex;
+  position: relative;
+  .garis {
+    border-top:1px solid lightgrey;
+    width: 100%;
+    position: relative;
+    display: block;
+  }
+
+  .labeluser {
+    font-size:12px;
+    position: absolute;
+    left:50%;
+    top:-10px;
+    background-color: #fff;
+    padding-left:15px;
+    padding-right: 15px;
+    transform: translateX(-50%);
+    font-weight: 600;
+    // top:3px;
+
+  }
 }

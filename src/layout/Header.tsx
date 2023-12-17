@@ -1,7 +1,7 @@
 import React, { Component, useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { Store } from "react-notifications-component";
+import { store } from "react-notifications-component";
 import { FinanceRootStoreContext } from "../modules/finance/stores/FinanceRootStore";
 
 import 'react-notifications-component/dist/theme.css'
@@ -125,7 +125,7 @@ const Header = () => {
                                     style={{ display: "none" }}
                                     id="btnPullNotif"
                                     onClick={() => {
-                                        Store.addNotification({
+                                        store.addNotification({
                                             title: "Notification",
                                             message: "Anda memiliki " + dataSPDTerima?.spdKirimTerimaList.length! + " dokumen SPD yang belum di Approve",
                                             type: "default", // 'default', 'success', 'info', 'warning'

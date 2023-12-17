@@ -8,7 +8,7 @@ const PostThread = () => {
 			const response = await fetch('http://localhost:3001/api/data');
 			const arr_data = await response.json();
 			setData(arr_data);
-			alert(JSON.stringify(arr_data));
+			// alert(JSON.stringify(arr_data));
 		}
 		useEffect(() => {
 				fetchData();

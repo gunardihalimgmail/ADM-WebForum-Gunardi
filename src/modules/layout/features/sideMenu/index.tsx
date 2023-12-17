@@ -1,13 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
 import { svgCustom } from '../../../../utils/svgcustom'
 import './sideMenu.scss'
+import { Link } from 'react-router-dom'
+import { FormControl, Form, FormGroup, FormLabel, Modal, ModalBody, ModalFooter, ModalTitle } from 'react-bootstrap'
+import ModalHeader from 'react-bootstrap/esm/ModalHeader'
 
 const SideMenu = () => {
+
+  const [user, setUser] = useState('');
+  const [statusLogin, setStatusLogin] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(()=>{
+      if (!statusLogin){
+        setUser('Masuk')
+      }
+  })
+
+  const handleClickSignIn = (status) => {
+      setShowModal(status)
+  }
+  const handleCloseModal = () => {
+      setShowModal(false)
+  }
+
   return (
     <>
         <div className='side-left-sub'>
-                
+
             <Sidebar
 								className='sidebarClasses'
 								backgroundColor='rgb(249,249,249,0.5)'
@@ -65,12 +86,19 @@ const SideMenu = () => {
 
                 <div className='logo-header'>
                     <div className='logo-title'>
-                        P
+                        W
                     </div>
                     <p className='logo-subtitle'>
-                        Pro Dash
+                        eb Forum
                     </p>
+
                 </div>
+
+                <div className='signin-title' onClick={()=>{handleClickSignIn(true)}}>
+                  {/* sign in */}
+                    {user}
+                </div>
+
 
                 <div className='pre-title-submenu'>
                     <p>General</p>
@@ -99,6 +127,43 @@ const SideMenu = () => {
                 </div>
             </div>
         </div>
+
+        <Modal show={showModal} centered={false} onHide={handleCloseModal}>
+            <ModalHeader closeButton>
+                <ModalTitle> 
+                    <div className='modal-title'>Masuk </div>
+                </ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+                
+                <Form>
+                    <FormGroup controlId='formbasicUsername'>
+                        <FormLabel>Username / Email</FormLabel>
+                        <FormControl type="text" maxLength={50} placeholder='Enter User'></FormControl>
+                    </FormGroup>
+                    <FormGroup controlId='formbasicPassword'>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl type="password" maxLength={50} placeholder='Enter Password'></FormControl>
+                    </FormGroup>
+                    <div className='mt-4'>
+                        <button className='btn btn-primary-custom btn-block'>Masuk</button>
+                    </div>
+
+                    <div className='buatuser mt-4'>
+                        <span className='garis'></span>
+                        <span className='labeluser'>atau buat user baru</span>
+                    </div>
+
+                    <div className='mt-4'>
+                        <button className='btn btn-info btn-block'>Buat User</button>
+                    </div>
+                </Form>
+
+            </ModalBody>
+            <ModalFooter>
+
+            </ModalFooter>
+        </Modal>
     </>
   )
 }

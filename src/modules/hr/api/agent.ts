@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { IResponse } from "../../../models/CommonModel";
-import history from "../../../utils/history";
+// import history from "../../../utils/history";
 
 const hrAxios = axios.create(
     {
@@ -17,7 +17,7 @@ const hrAxios = axios.create(
 hrAxios.interceptors.response.use(undefined, error => {
     if (error.message === 'Network Error' && !error.response) {
         alert('Network error - make sure HR API is running!')
-        history.push('');
+        // history.push('');
         window.location.reload();
     }
 

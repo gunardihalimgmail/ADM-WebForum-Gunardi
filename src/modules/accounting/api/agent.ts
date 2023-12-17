@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { IResponse } from "../../../models/CommonModel";
-import history from "../../../utils/history";
+// import history from "../../../utils/history";
 
 const accountingAxios = axios.create(
     {
@@ -17,7 +17,7 @@ const accountingAxios = axios.create(
 accountingAxios.interceptors.response.use(undefined, error => {
     if (error.message === 'Network Error' && !error.response) {
        alert('Network error - make sure Procurement API is running!')
-       history.push('');
+      //  history.push('');
        window.location.reload();
     }
 
