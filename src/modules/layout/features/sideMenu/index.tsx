@@ -32,9 +32,14 @@ const SideMenu = () => {
 	const [msgAlert, setMsgAlert] = useState('');
 	const [statusDisabled, setStatusDisabled] = useState(false);
 
+  const menuList:any = [
+      {name: 'Charts', icon: 'profile_small.jpg'}
+  ];
+
 	let objInput:any = {}
 
   useEffect(()=>{
+
 
 			let user:any = getValueLocalStorage('ADM-USER');
 			if (user != null){
@@ -451,7 +456,20 @@ const SideMenu = () => {
                     <p>General</p>
                 </div>
 
-                    <SubMenu className='submenu-custom' label="Charts" defaultOpen={false} icon={svgCustom('searchengin', 'rgb(7, 110, 97)', 18)}>
+                    {menuList.length > 0 &&
+                      (
+                        menuList.map((obj, idx)=>{
+                            return (
+                                <MenuItem className='submenu-custom' key={obj.name + idx} >
+                                  <img src = {process.env.PUBLIC_URL + '/img/' + obj.icon} width="25" height="25"/>
+                                  <span>{obj.name}</span>
+                                </MenuItem>
+                            )
+                        })
+                      )
+                    }
+
+                    {/* <SubMenu className='submenu-custom' label="Charts" defaultOpen={false} icon={svgCustom('searchengin', 'rgb(7, 110, 97)', 18)}>
                         <MenuItem>Pie Charts</MenuItem>
                         <MenuItem>Line Charts</MenuItem>
                     </SubMenu>
@@ -465,7 +483,7 @@ const SideMenu = () => {
                         <MenuItem>Pie Charts</MenuItem>
                         <MenuItem>Line Charts</MenuItem>
                     </SubMenu>
-                    <MenuItem className='submenu-custom' icon={svgCustom('rectangle-list', 'rgb(7, 110, 97)', 18)}>Dashboard</MenuItem>
+                    <MenuItem className='submenu-custom' icon={svgCustom('rectangle-list', 'rgb(7, 110, 97)', 18)}>Dashboard</MenuItem> */}
 
                 </Menu>
             </Sidebar>

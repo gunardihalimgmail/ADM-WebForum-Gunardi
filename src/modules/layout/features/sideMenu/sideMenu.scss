@@ -256,3 +256,12 @@
     transform: rotateX(0) scale(1);
   }
 }
+
+.submenu-custom {
+  img {
+    border-radius: 100px;
+  }
+  span {
+    margin-left:15px;
+  }
+}
