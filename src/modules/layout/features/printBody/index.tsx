@@ -257,16 +257,16 @@ const PrintBody = () => {
     }
 
     const handleClickSocket = ()=> {
-        fetch('http://localhost:3017/api/data'
-                ,{ 
-                    headers:{
-                        'Content-Type':'application/json'
-                    },
-                    method:'GET'
-                }
-        )
-            .then(response=>response.json())
-            .then(data=>alert(JSON.stringify(data)))
+        // fetch('http://localhost:3017/api/data'
+        //         ,{ 
+        //             headers:{
+        //                 'Content-Type':'application/json'
+        //             },
+        //             method:'GET'
+        //         }
+        // )
+        //     .then(response=>response.json())
+        //     .then(data=>alert(JSON.stringify(data)))
     }
 
     return (
@@ -281,11 +281,11 @@ const PrintBody = () => {
                     onClick={handleClickSocket}
                 >Web Socket</button>
 
-                <WebSocket
+                {/* <WebSocket
                     url="ws://localhost:3017"
                     onMessage={handleData}
                     reconnect={true}
-                />
+                /> */}
             </div>
 
             <div className='button-print'>

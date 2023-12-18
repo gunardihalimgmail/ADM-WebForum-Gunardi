@@ -1,3 +1,55 @@
+import CryptoJS from 'crypto-js'
+import { toast } from 'react-toastify'
+
+export const secretKey = 'webforum123';
+
+export const removeKeyLocalStorage = (key) => {
+
+    if (localStorage.getItem(key)) 
+    {
+        localStorage.removeItem(key);
+    }
+
+}
+
+export const getValueLocalStorage = (key) => {
+    
+    let result:any = null;
+    let val:any = localStorage.getItem(key);
+
+    if (val != null) 
+    {
+        result = CryptoJS.AES.decrypt(val, secretKey).toString(CryptoJS.enc.Utf8)
+    }
+
+    return result;
+
+}
+
+export const setToLocalStorage = (key, value) => {
+    
+    if (localStorage.getItem(key) != null) 
+    {
+        localStorage.removeItem(key);
+    }
+
+    if (value != null)
+    {
+        let enkrip:any = CryptoJS.AES.encrypt(value.toString(), secretKey);
+        localStorage.setItem(key, enkrip);
+    }
+    else {
+        throw new Error('Periksa kembali parameter nya');
+    }
+}
+
+export const removeFromLocalStorage = (key) => {
+    if (localStorage.getItem(key) != null) 
+    {
+        localStorage.removeItem(key);
+    }
+}
+
 export const loadjs = (jsname: string) => {
 
     // const timer = setTimeout(() => {
@@ -64,3 +116,36 @@ export const funcShowCheckedOrAll = (statusChecked:string) => {
     })
 
 }
+
+export const notify = (type:'info'|'error'|'success'|'warning', msg?:any) => {
+    // React-toastify
+    
+    const obj_toastify:any = {
+      position: toast.POSITION.TOP_CENTER,
+      theme:"colored",
+      autoClose: 1000,
+      hideProgressBar: false,
+      newestOnTop:true,
+      rtl:false,
+      // closeOnClick:true,
+      // pauseOnFocusLoss:true,
+      // draggable:true,
+      // pauseOnHover:true
+    }
+    switch(type){
+      case 'info':
+        toast.info(msg, {...obj_toastify});
+        break;
+      case 'error':
+        toast.error(msg, {...obj_toastify});
+        break;
+      case 'success':
+        toast.success(msg, {...obj_toastify});
+        break;
+      case 'warning':
+        toast.warning(msg, {...obj_toastify});
+        break;
+    }
+  
+  };
+  

@@ -91,18 +91,80 @@
 
 .signin-title {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   color:cadetblue;
   text-decoration: underline;
   font-style: italic;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
-  margin-bottom: 35px;
+  margin-top:10px;
+  margin-bottom: 5px;
 
-  &:hover {
-    color: darkviolet;
-    cursor: pointer;
+  .user {
+    position: relative;
+    display: block;
+    font-size: 12px;
+    max-width:100%;
+    width: 100%;
+    // border:1px solid red;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    background: cadetblue;
+    color:white;
+    text-align: center;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right:10px;
+    margin-left:10px;
+    margin-right: 10px;
+    
+    
+    &:hover {
+      color: blue;
+      cursor: pointer;
+    }
   }
+
+}
+
+.signin-title2 {
+
+    display: flex;
+    justify-content: space-evenly;
+    color:cadetblue;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top:0px;
+    margin-bottom: 35px;
+
+    .keluar {
+      position: relative;
+      display: block;
+      font-size: 12px;
+      max-width:100%;
+      width: 100%;
+      // border:1px solid red;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      background: lightcoral;
+      color:white;
+      text-align: center;
+      border-radius: 5px;
+      padding-left: 10px;
+      padding-right:10px;
+      margin-left:10px;
+      margin-right: 10px;
+
+      &:hover {
+        background: rgb(129, 40, 40);
+        color: white;
+        cursor: pointer;
+      }
+    }
+
 }
 
 .modal-header {
@@ -120,6 +182,13 @@
   .form-label {
     margin-bottom: 0.5rem;
     font-weight: bold;
+
+    &.required {
+      &::after {
+          content:' *';
+          color:red;
+      }
+    }
   }
 }
 
@@ -155,5 +224,35 @@
     font-weight: 600;
     // top:3px;
 
+  }
+}
+
+.warning-msg {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.alert-form {
+  text-align: center;
+  font-size: 16px;
+  width: 100%;
+}
+
+#modal-masuk,
+#modal-buat
+{
+  .modal-content {
+    // transition: all 0.1s;
+    animation: tampil .4s ease-in;
+  }
+}
+
+@keyframes tampil {
+  from {
+    transform: rotateX(90deg) scale(0);
+  }
+  to {
+    transform: rotateX(0) scale(1);
   }
 }

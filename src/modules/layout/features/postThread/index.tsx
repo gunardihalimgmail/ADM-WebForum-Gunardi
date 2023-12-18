@@ -5,9 +5,9 @@ const PostThread = () => {
 		const [data, setData] = useState(null);
 
 		const fetchData = async () => {
-			const response = await fetch('http://localhost:3001/api/data');
-			const arr_data = await response.json();
-			setData(arr_data);
+			// const response = await fetch('http://localhost:3001/api/data');
+			// const arr_data = await response.json();
+			// setData(arr_data);
 			// alert(JSON.stringify(arr_data));
 		}
 		useEffect(() => {
@@ -16,8 +16,8 @@ const PostThread = () => {
 
     return (
         <div>
-						Cara Server {JSON.stringify(data)}
-				</div>
+				-- post thread --
+		</div>
     )
 }
 

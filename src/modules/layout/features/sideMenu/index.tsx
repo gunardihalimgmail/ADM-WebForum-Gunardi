@@ -1,43 +1,367 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
 import { svgCustom } from '../../../../utils/svgcustom'
 import './sideMenu.scss'
 import { Link } from 'react-router-dom'
-import { FormControl, Form, FormGroup, FormLabel, Modal, ModalBody, ModalFooter, ModalTitle } from 'react-bootstrap'
+import { FormControl, Form, FormGroup, FormLabel, Modal, ModalBody, ModalFooter, ModalTitle, Alert } from 'react-bootstrap'
 import ModalHeader from 'react-bootstrap/esm/ModalHeader'
+import _ from 'lodash'
+import CryptoJS from 'crypto-js'
+import { getValueLocalStorage, notify, removeKeyLocalStorage, secretKey, setToLocalStorage } from '../../../../utils/others'
+import 'react-toastify/dist/ReactToastify.css';
 
 const SideMenu = () => {
-
+	
   const [user, setUser] = useState('');
   const [statusLogin, setStatusLogin] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showModalBuat, setShowModalBuat] = useState(false);
+  const [inputForm, setInputForm] = useState({
+						name_user_masuk: {value:'',required:true, alias:'Username'},
+						name_password_masuk: {value:'',required:true, alias:'Password'}
+	});
+
+  const [inputFormBuat, setInputFormBuat] = useState({
+						name_user_baru: {value:'',required:true, alias:'Username'},
+						name_password_baru: {value:'',required:true, alias:'Password'}
+	});
+
+	let refInput:any = useRef(null);
+
+	const [showAlert, setShowAlert] = useState(false);
+	const [msgAlert, setMsgAlert] = useState('');
+	const [statusDisabled, setStatusDisabled] = useState(false);
+
+	let objInput:any = {}
 
   useEffect(()=>{
-      if (!statusLogin){
-        setUser('Masuk')
-      }
-  })
 
-  const handleClickSignIn = (status) => {
-      setShowModal(status)
+			let user:any = getValueLocalStorage('ADM-USER');
+			if (user != null){
+					setStatusLogin(true);
+					setUser(user);
+			}
+			else {
+					setStatusLogin(false);
+					setUser('Masuk')
+				}
+      
+  }, [])
+
+
+	const resetInput = async() => {
+			let objInput:any = {...inputForm};
+			Object.keys(objInput).forEach((nameinput, idx)=>{
+						objInput = {
+								...objInput,
+								[nameinput]: {
+										...objInput?.[nameinput],
+										value: ''
+								}
+						}
+			});
+
+			await setInputForm({...objInput})
+
+			let objInputBuat:any = {...inputFormBuat};
+			Object.keys(objInputBuat).forEach((nameinput, idx)=>{
+						objInputBuat = {
+								...objInputBuat,
+								[nameinput]: {
+										...objInputBuat?.[nameinput],
+										value: ''
+								}
+						}
+			});
+
+			await setInputFormBuat({...objInputBuat})
+
+	}
+
+  const handleClickSignIn = (status, idelement) => {
+      setShowModal(status);
+			setShowAlert(false);
+			setMsgAlert('');
+			resetInput();
+			
+			setTimeout(()=>{
+				refInput.current?.focus();
+			})
   }
+
+	const handleClickSignOut = () => {
+			setMsgAlert('');
+			setShowAlert(false);
+			setUser('Masuk');
+			setStatusLogin(false);
+			removeKeyLocalStorage('ADM-USER')
+	}	
+
   const handleCloseModal = () => {
+			resetInput();
+			setMsgAlert('');
+			setShowAlert(false);
       setShowModal(false)
   }
   const handleCloseModalBuat = () => {
       setShowModalBuat(false)
   }
 
-  const handleClickMasuk = (event) => {
+	const fetchData = async (param, method, path) => {
+			if (param != null){
+
+			}
+			let response = await fetch('http://' + window.location.hostname + ':3001/' + path,{
+					method,
+					headers: {
+						'Content-Type':'application/json'
+					},
+					body: JSON.stringify(param)
+			}).catch(err=>err)
+
+			let result = response.json();
+			return result;
+	}
+
+  const handleClickMasuk = async(event) => {
     event?.preventDefault();
+
+		let statusBreak:boolean = false;
+
+		for(const nameinput of Object.keys(inputForm))
+		{
+				let input_req:any = inputForm?.[nameinput]?.['required'];
+				let input_val:any = inputForm?.[nameinput]?.['value'];
+				let input_alias:any = inputForm?.[nameinput]?.['alias'];
+				if (typeof input_req != 'undefined' && input_req != null && input_req)
+				{
+						if (typeof input_val == 'undefined' || input_val == null || input_val == '')
+						{
+								console.log(input_alias)
+								statusBreak = true;
+								setShowAlert(true);
+								setMsgAlert(input_alias + ' is Required !');
+								break;
+						}
+				}
+		}
+
+		if (statusBreak){
+				return
+		}
+		else{
+				setShowAlert(false);
+				setMsgAlert('');
+
+				// contoh : {"name_user_masuk":"asd","name_password_masuk":"12312"}
+				let input_val:any = _.mapValues(inputForm, 'value');
+
+				let hasil:any = await fetchData(
+						{'user_id': input_val?.['name_user_masuk'], 
+							'password' : input_val?.['name_password_masuk']
+						},
+						'POST','user/login'
+				)
+
+				if (hasil?.['status'] == 'success' && hasil?.['result'] != null){
+						setStatusLogin(true);
+						setUser(hasil?.['result']?.['user_id']);
+						setShowModal(false);
+						resetInput();
+
+						setToLocalStorage('ADM-USER', input_val?.['name_user_masuk'])
+				}
+				else {
+						setMsgAlert(`Periksa kembali username dan password !`);
+						setShowAlert(true);
+						return
+				}
+
+				console.log(hasil)
+		}
   }
+
+  const handleClickSubmitBuat = async(event) => {
+    event?.preventDefault();
+
+		let statusBreak:boolean = false;
+		console.log(inputFormBuat)
+		for(const nameinput of Object.keys(inputFormBuat))
+		{
+				console.log(nameinput)
+				let input_req:any = inputFormBuat?.[nameinput]?.['required'];
+				let input_val:any = inputFormBuat?.[nameinput]?.['value'];
+				let input_alias:any = inputFormBuat?.[nameinput]?.['alias'];
+				if (typeof input_req != 'undefined' && input_req != null && input_req)
+				{
+						if (typeof input_val == 'undefined' || input_val == null || input_val == '')
+						{
+								// console.log(input_alias)
+								statusBreak = true;
+								setShowAlert(true);
+								setMsgAlert(input_alias + ' is Required !');
+								break;
+						}
+				}
+		}
+
+		if (statusBreak){
+				return
+		}
+		else{
+				setShowAlert(false);
+				setMsgAlert('');
+				setStatusDisabled(true);
+
+				// contoh : {"name_user_masuk":"asd","name_password_masuk":"12312"}
+				let input_val:any = _.mapValues(inputFormBuat, 'value');
+
+				let hasil:any = await fetchData(
+						{'user_id': input_val?.['name_user_baru'], 
+							'password' : input_val?.['name_password_baru']
+						},
+						'POST','user/create'
+				)
+
+				if (hasil?.['status'] == 'success' && hasil?.['result'] == null && 
+							hasil?.['message'] != '' && hasil?.['message'] != null){
+						// user sudah ada
+						setMsgAlert(`${hasil?.['message']}`);
+						setShowAlert(true);	
+						setStatusDisabled(false);
+						return;
+				}
+				else 
+				{
+					// result != null => berhasil simpan
+						setMsgAlert('');
+						setShowAlert(false);	
+
+						notify('success', `${hasil?.['result']}`);
+
+						setTimeout(()=>{
+							setShowModalBuat(false);
+							setStatusDisabled(false);
+							resetInput();
+							return
+						},1500)
+							
+				}
+
+				console.log(hasil)
+		}
+  }
+
+  // const handleClickbuat = async(event) => {
+  //   event?.preventDefault();
+
+	// 	let statusBreak:boolean = false;
+
+	// 	for(const nameinput of Object.keys(inputForm))
+	// 	{
+	// 			let input_req:any = inputForm?.[nameinput]?.['required'];
+	// 			let input_val:any = inputForm?.[nameinput]?.['value'];
+	// 			let input_alias:any = inputForm?.[nameinput]?.['alias'];
+	// 			if (typeof input_req != 'undefined' && input_req != null && input_req)
+	// 			{
+	// 					if (typeof input_val == 'undefined' || input_val == null || input_val == '')
+	// 					{
+	// 							console.log(input_alias)
+	// 							statusBreak = true;
+	// 							setShowAlert(true);
+	// 							setMsgAlert(input_alias + ' is Required !');
+	// 							break;
+	// 					}
+	// 			}
+	// 	}
+
+	// 	if (statusBreak){
+	// 			return
+	// 	}
+	// 	else{
+	// 			setShowAlert(false);
+	// 			setMsgAlert('');
+
+	// 			// contoh : {"name_user_masuk":"asd","name_password_masuk":"12312"}
+	// 			let input_val:any = _.mapValues(inputForm, 'value');
+
+	// 			let hasil:any = await fetchData(
+	// 					{'user_id': input_val?.['name_user_masuk'], 
+	// 						'password' : input_val?.['name_password_masuk']
+	// 					},
+	// 					'POST','user/login'
+	// 			)
+
+	// 			if (hasil?.['status'] == 'success' && hasil?.['result'] != null){
+	// 					setStatusLogin(true);
+	// 					setUser(hasil?.['result']?.['user_id']);
+	// 					setShowModal(false);
+	// 					resetInput();
+
+	// 					setToLocalStorage('ADM-USER', input_val?.['name_user_masuk'])
+	// 			}
+	// 			else {
+	// 					setMsgAlert(`Periksa kembali username dan password !`);
+	// 					setShowAlert(true);
+	// 					return
+	// 			}
+
+	// 			console.log(hasil)
+	// 	}
+  // }
 
   const handleClickBuat = (event) => {
     setShowModal(false);
     setShowModalBuat(true);
+		setShowAlert(false);
+		setMsgAlert('');
+		resetInput()
     event?.preventDefault();
   }
+
+	const handleChangeInput = async (event) => {
+			
+			let inputname = event.target.name;
+			
+			let objInput:any = {...inputForm};
+			objInput = {
+					...objInput,
+					[inputname]: {
+							...objInput?.[inputname],
+							value: event.target.value,
+							required: event.target.required
+					}
+			}
+
+			await setInputForm({...objInput});
+
+			console.log(inputForm)
+	}
+
+	const handleChangeInputBuat = async (event) => {
+			
+			let inputname = event.target.name;
+			
+			let objInputBuat:any = {...inputFormBuat};
+			objInputBuat = {
+					...objInputBuat,
+					[inputname]: {
+							...objInputBuat?.[inputname],
+							value: event.target.value,
+							required: event.target.required
+					}
+			}
+
+			if (event.target.value != null && event.target.value != '')
+			{
+					setMsgAlert('');
+					setShowAlert(false);
+			}
+
+			await setInputFormBuat({...objInputBuat});
+
+			console.log(inputFormBuat)
+	}
 
   return (
     <>
@@ -108,10 +432,19 @@ const SideMenu = () => {
 
                 </div>
 
-                <div className='signin-title' onClick={()=>{handleClickSignIn(true)}}>
+                <div className='signin-title'>
                   {/* sign in */}
-                    {user}
+                    <span className='user' onClick={()=>{handleClickSignIn(true, 'modal-masuk')}}>{user}</span>
+										
                 </div>
+								<div className='signin-title2'>
+										{
+											statusLogin &&
+											(
+												<span className='keluar' onClick={()=>{handleClickSignOut()}}>{'Keluar'}</span>
+											)
+										}
+								</div>
 
 
                 <div className='pre-title-submenu'>
@@ -143,23 +476,40 @@ const SideMenu = () => {
         </div>
 
 {/* MODAL MASUK */}
-        <Modal show={showModal} centered={false} onHide={handleCloseModal}>
+        <Modal show={showModal} centered={false} onHide={handleCloseModal} id = 'modal-masuk'>
             <ModalHeader closeButton>
                 <ModalTitle> 
-                    <div className='modal-title'>Masuk </div>
+                    <div className='modal-title'> Masuk </div>
                 </ModalTitle>
             </ModalHeader>
             <ModalBody>
-                
+
+								{ showAlert && 
+									(
+											<div className='warning-msg'> 
+												<Alert show={showAlert} variant='danger' className='alert-form'>
+														{msgAlert}
+												</Alert>
+											</div>
+									)
+								}
+
                 <Form>
                     <FormGroup controlId='formbasicUsername'>
-                        <FormLabel>Username / Email</FormLabel>
-                        <FormControl type="text" name='name-user-masuk' maxLength={50} placeholder='Enter User'></FormControl>
+                        <FormLabel className='required'>Username / Email</FormLabel>
+                        <FormControl type="text" onChange={(event)=>handleChangeInput(event)}  
+															value = {inputForm?.['name_user_masuk']?.['value'] || ''}
+															ref={refInput}
+															name='name_user_masuk' maxLength={50} placeholder='Enter User' required></FormControl>
                     </FormGroup>
+
                     <FormGroup controlId='formbasicPassword'>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl type="password" name='name-password-masuk' maxLength={50} placeholder='Enter Password'></FormControl>
+                        <FormLabel className='required'>Password</FormLabel>
+                        <FormControl type="password" onChange={handleChangeInput} 
+															value = {inputForm?.['name_password_masuk']?.['value'] || ''}
+															name='name_password_masuk' maxLength={50} placeholder='Enter Password' required></FormControl>
                     </FormGroup>
+
                     <div className='mt-4'>
                         <button className='btn btn-primary-custom btn-block' onClick={(event)=>handleClickMasuk(event)}>Masuk</button>
                     </div>
@@ -183,25 +533,42 @@ const SideMenu = () => {
 
 {/* MODAL BUAT USER */}
 
-        <Modal show={showModalBuat} centered={false} backdrop='static' onHide={handleCloseModalBuat}>
+        <Modal show={showModalBuat} centered={false} backdrop='static' onHide={handleCloseModalBuat} id = 'modal-buat'>
             <ModalHeader closeButton>
                 <ModalTitle> 
                     <div className='modal-title'>Buat User </div>
                 </ModalTitle>
             </ModalHeader>
             <ModalBody>
-                
+
+								{ showAlert && 
+									(
+											<div className='warning-msg'> 
+												<Alert show={showAlert} variant='danger' className='alert-form'>
+														{msgAlert}
+												</Alert>
+											</div>
+									)
+								}
+
                 <Form>
                     <FormGroup controlId='formbasicUsername'>
-                        <FormLabel>Username / Email</FormLabel>
-                        <FormControl type="text" name='name-user-baru' maxLength={50} placeholder='Enter User'></FormControl>
+                        <FormLabel className='required'>Username / Email</FormLabel>
+                        <FormControl type="text" name='name_user_baru' maxLength={50} placeholder='Enter User'
+																onChange={handleChangeInputBuat} 
+																disabled={statusDisabled}
+																value = {inputFormBuat?.['name_user_baru']?.['value'] || ''} required></FormControl>
                     </FormGroup>
                     <FormGroup controlId='formbasicPassword'>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl type="password" name='name-password-baru' maxLength={50} placeholder='Enter Password'></FormControl>
+                        <FormLabel className='required'>Password</FormLabel>
+                        <FormControl type="password" name='name_password_baru' maxLength={50} placeholder='Enter Password' 
+																	onChange={handleChangeInputBuat} 
+																	disabled={statusDisabled}
+																	value = {inputFormBuat?.['name_password_baru']?.['value'] || ''}
+													required></FormControl>
                     </FormGroup>
                     <div className='mt-4'>
-                        <button className='btn btn-primary-custom btn-block' onClick={(event)=>handleClickMasuk(event)}>Buat</button>
+                        <button className='btn btn-primary-custom btn-block' onClick={(event)=>handleClickSubmitBuat(event)} disabled={statusDisabled}>Buat</button>
                     </div>
 
                 </Form>

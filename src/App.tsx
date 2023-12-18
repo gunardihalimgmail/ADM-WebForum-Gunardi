@@ -20,6 +20,8 @@ import DetailPengajuan from "./modules/memo/features/Detail/Pengajuan";
 import './App.css'
 import PostThread from "./modules/layout/features/postThread";
 import { gapi } from "gapi-script";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 // export const appHistory = createBrowserHistory();
 
@@ -69,6 +71,11 @@ function App() {
             </Route>
 
       </Routes>
+
+      <ToastContainer 
+        draggable
+        pauseOnHover
+      />
 
           {/* <Route exact path="/" component={Login} /> */}
 

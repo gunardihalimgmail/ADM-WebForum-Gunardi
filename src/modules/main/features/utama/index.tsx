@@ -9,7 +9,7 @@ import SideMenu from '../../../layout/features/sideMenu'
 import PrintBody from '../../../layout/features/printBody'
 import PostThread from '../../../layout/features/postThread'
 import { Link, Outlet, Route, Router, Routes, useNavigate } from 'react-router-dom'
-import { GoogleLogin, GoogleLogout } from 'react-google-login'
+// import { GoogleLogin, GoogleLogout } from 'react-google-login'
 // import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google'
 import { gapi } from 'gapi-script'
 
@@ -67,7 +67,9 @@ const MainPage = () => {
                   <HeaderMain></HeaderMain>
                   <div style = {{height:'100%', padding: '2rem'}}>
 
-                      <Link to="child1">Click sini</Link>
+                      {/* <Link to="child1">Click sini</Link> */}
+
+                      <Outlet />
 
                       {/* clientId='994442954425-n4bc6lobpf99mqfa16kcg3ck0v96dill.apps.googleusercontent.com' */}
 
@@ -99,7 +101,7 @@ const MainPage = () => {
                       </GoogleOAuthProvider> */}
 
                       
-                      <Outlet />
+                      
                   </div>
 
               </div>
