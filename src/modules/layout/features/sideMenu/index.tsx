@@ -9,6 +9,8 @@ import _ from 'lodash'
 import CryptoJS from 'crypto-js'
 import { getValueLocalStorage, notify, removeKeyLocalStorage, secretKey, setToLocalStorage } from '../../../../utils/others'
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux'
+import { store } from '../../../../reducers';
 
 const SideMenu = () => {
 	
@@ -32,10 +34,17 @@ const SideMenu = () => {
 	const [msgAlert, setMsgAlert] = useState('');
 	const [statusDisabled, setStatusDisabled] = useState(false);
 
+  const menuList:any = [
+      {name: 'Hot Topics', icon: 'Custom-Icon-Design-Flatastic-4-Hot.512.png'}
+  ];
+
 	let objInput:any = {}
 
-  useEffect(()=>{
+	const dispatch = useDispatch();
 
+  useEffect(()=>{
+		
+			
 			let user:any = getValueLocalStorage('ADM-USER');
 			if (user != null){
 					setStatusLogin(true);
@@ -44,9 +53,11 @@ const SideMenu = () => {
 			else {
 					setStatusLogin(false);
 					setUser('Masuk')
-				}
+			}
       
-  }, [])
+			return () => {}
+
+  },[])
 
 
 	const resetInput = async() => {
@@ -363,6 +374,10 @@ const SideMenu = () => {
 			console.log(inputFormBuat)
 	}
 
+	const handeClickMenuItem = (name) => {
+			dispatch({type:'PARSE_TEXT', text: name})
+	}
+
   return (
     <>
         <div className='side-left-sub'>
@@ -451,7 +466,21 @@ const SideMenu = () => {
                     <p>General</p>
                 </div>
 
-                    <SubMenu className='submenu-custom' label="Charts" defaultOpen={false} icon={svgCustom('searchengin', 'rgb(7, 110, 97)', 18)}>
+                    {menuList.length > 0 &&
+                      (
+                        menuList.map((obj, idx)=>{
+                            return (
+                                <MenuItem className='submenu-custom' key={obj.name + idx} 
+																		onClick={(e)=>{e.preventDefault(); handeClickMenuItem(obj.name)}}>
+                                  <img src = {process.env.PUBLIC_URL + '/img/' + obj.icon} width="25" height="25"/>
+                                  <span>{obj.name}</span>
+                                </MenuItem>
+                            )
+                        })
+                      )
+                    }
+
+                    {/* <SubMenu className='submenu-custom' label="Charts" defaultOpen={false} icon={svgCustom('searchengin', 'rgb(7, 110, 97)', 18)}>
                         <MenuItem>Pie Charts</MenuItem>
                         <MenuItem>Line Charts</MenuItem>
                     </SubMenu>
@@ -465,7 +494,7 @@ const SideMenu = () => {
                         <MenuItem>Pie Charts</MenuItem>
                         <MenuItem>Line Charts</MenuItem>
                     </SubMenu>
-                    <MenuItem className='submenu-custom' icon={svgCustom('rectangle-list', 'rgb(7, 110, 97)', 18)}>Dashboard</MenuItem>
+                    <MenuItem className='submenu-custom' icon={svgCustom('rectangle-list', 'rgb(7, 110, 97)', 18)}>Dashboard</MenuItem> */}
 
                 </Menu>
             </Sidebar>

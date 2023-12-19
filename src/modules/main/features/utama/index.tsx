@@ -12,6 +12,8 @@ import { Link, Outlet, Route, Router, Routes, useNavigate } from 'react-router-d
 // import { GoogleLogin, GoogleLogout } from 'react-google-login'
 // import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google'
 import { gapi } from 'gapi-script'
+import { store } from '../../../../reducers'
+import { useDispatch, useSelector } from 'react-redux'
 
 // import { createBrowserHistory } from 'history';
 
@@ -24,7 +26,23 @@ const MainPage = () => {
   
   const navigate = useNavigate();
 
+  // const funcRedText = useSelector((state:any)=>state);
+
+  // const handleStoreChange = () => {
+  //   console.log('Store ' + JSON.stringify(funcRedText));
+  // }
+
+  // const unsubscribe = store.subscribe(()=>{
+  //     console.log(JSON.stringify(store.getState()?.['funcRed']?.['parseText']))
+  // });
+
+  // const getdata = store.subscribe(
   useEffect(()=>{
+    
+    navigate({
+      pathname:'/posthread'
+    })
+    
     // clientId: '994442954425-n4bc6lobpf99mqfa16kcg3ck0v96dill.apps.googleusercontent.com',
     function start(){
       try{
@@ -38,7 +56,11 @@ const MainPage = () => {
     }
 
     gapi.load('client:auth2', start);
-  })
+
+    return () => {
+      // unsubscribe();
+    }
+  },[])
     
   const responseGoogle = (response) => {
       console.log(response)
@@ -64,8 +86,10 @@ const MainPage = () => {
                   <SideMenu></SideMenu>
               </div>
               <div className='side-right' >
-                  <HeaderMain></HeaderMain>
-                  <div style = {{height:'100%', padding: '2rem'}}>
+                  <div className='posisi-header'>
+                      <HeaderMain></HeaderMain>
+                  </div>
+                  <div style = {{height:'100%', padding: '2rem', marginTop:'90px'}}>
 
                       {/* <Link to="child1">Click sini</Link> */}
 

@@ -8,6 +8,9 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 // import appHistory from './utils/history';
 import ReactNotifications from 'react-notifications-component';
+import { Provider } from 'react-redux';
+import { store } from './reducers';
+import { MyContextProvider } from './mycontext';
 
 if (process.env.NODE_ENV === 'production'){
   console.log = () => {}
@@ -21,10 +24,14 @@ const root = ReactDOM.createRoot(
 
 root.render(
   // <Router history={appHistory}>
-  <Router>
-      <ReactNotifications />
-      <App />
-  </Router>
+  <Provider store={store}>
+    {/* <MyContextProvider> */}
+      <Router>
+          <ReactNotifications />
+          <App />
+      </Router>
+    {/* </MyContextProvider> */}
+  </Provider>
 
   // document.getElementById('root')
 );
