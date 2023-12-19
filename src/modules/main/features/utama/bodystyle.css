@@ -10115,3 +10115,9 @@ body.md-skin {
 /*.panel-content .select-panel label.select-item { */
   font-size:15px !important;
 }
+
+.posisi-header {
+  position: fixed;
+  width:100%;
+  z-index:999;
+}
