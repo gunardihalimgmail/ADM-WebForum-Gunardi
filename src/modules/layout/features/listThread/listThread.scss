@@ -1,0 +1,57 @@
+.list-cont {
+  background-color: white;
+  padding-top:0.75rem;
+  padding-bottom:0.75rem;
+  padding-left:1rem;
+  padding-right: 1rem;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
+  height:210px;
+
+  .subperiode {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.tanggal-judul {
+  color:rgb(179 179 179);
+  margin-left: 0.25rem;
+}
+
+.list-title {
+  font-size:1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.list-content-topic {
+    display: -webkit-box;
+    overflow: hidden;
+    line-clamp: 3;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+
+.subtopic-cont {
+  position: relative;
+}
+
+.subtopic-efek-transp {
+    position: absolute;
+    display: block;
+    bottom: 0px;
+    width: 100%;
+    height:100px;
+    background: linear-gradient(to top,#fff 10%,rgba(255,255,255,0.2));
+}
+
+.page-footer {
+  padding-bottom:50px
+}

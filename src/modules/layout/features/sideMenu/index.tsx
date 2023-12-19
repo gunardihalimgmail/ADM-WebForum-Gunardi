@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
 import { svgCustom } from '../../../../utils/svgcustom'
 import './sideMenu.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FormControl, Form, FormGroup, FormLabel, Modal, ModalBody, ModalFooter, ModalTitle, Alert } from 'react-bootstrap'
 import ModalHeader from 'react-bootstrap/esm/ModalHeader'
 import _ from 'lodash'
@@ -14,6 +14,8 @@ import { store } from '../../../../reducers';
 
 const SideMenu = () => {
 	
+  const navigate = useNavigate();
+
   const [user, setUser] = useState('');
   const [statusLogin, setStatusLogin] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -35,7 +37,7 @@ const SideMenu = () => {
 	const [statusDisabled, setStatusDisabled] = useState(false);
 
   const menuList:any = [
-      {name: 'Hot Topics', icon: 'Custom-Icon-Design-Flatastic-4-Hot.512.png'}
+      {name: 'Post Thread', icon: 'Custom-Icon-Design-Flatastic-4-Hot.512.png'}
   ];
 
 	let objInput:any = {}
@@ -375,7 +377,8 @@ const SideMenu = () => {
 	}
 
 	const handeClickMenuItem = (name) => {
-			dispatch({type:'PARSE_TEXT', text: name})
+			dispatch({type:'PARSE_TEXT', text: name});
+      navigate({pathname:'/posthread'})
 	}
 
   return (

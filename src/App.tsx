@@ -76,7 +76,7 @@ function App() {
                   {/* <Route path="/main" element={<MainPage />}> */}
                   {/* <Route index element={<MainPage />}> */}
                       <Route path="posthread" element={<PostThread />} />
-                      <Route path="listThread" element={<ListThread />} />
+                      <Route path="listhread" element={<ListThread />} />
 
                   {/* </Route> */}
 

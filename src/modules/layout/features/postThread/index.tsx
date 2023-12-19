@@ -91,7 +91,7 @@ const PostThread = () => {
     const handleClickActiveKomunitas = (idx, obj) => {
         setActiveMenuKom(idx);
 
-        navigate(`/listThread?id_komunitas=${obj?.['id']}&id_kategori=${obj?.['id_kategori']}`);
+        navigate(`/listhread?id_komunitas=${obj?.['id']}&id_kategori=${obj?.['id_kategori']}`);
     }
 
     // const sanitizeHtmlContent =  sanitizeHtml('<div style="color: red"><b>Transmigrasi</b>&nbsp;menurut Kamus Besar Bahasa Indonesia (KBBI) artinya adalah <em>perpindahan dari satu daerah (pulau) yang berpenduduk padat ke daerah (pulau) lain yang berpenduduk jarang.&nbsp;</em><br>' + 
@@ -119,10 +119,37 @@ const PostThread = () => {
     // <br>
     // Di samping itu, warga lama desa 158 pun mencium adanya warga desa yang gemar membuka aib desa ke desa tetangga, oleh karena itu warga lama desa 158 memilih untuk membuka lahan baru yang lebih privat demi mencegah terjadinya hal-hal yang tidak diinginkan, karena apapun juga aib itu tidak baik jika diumbar.</div>`;
     
+    // const sanitizeHtmlContent = `<span data-attr="face" data-value="v_Verdana" style="font-family:Verdana !important;">Sebagai sarana pengaduan atas thread/postingan bermasalah di <a target="_blank" href="http://www.kaskus.co.id/forum/10/berita-dan-politik" rel="ugc" onclick="dataLayer.push({'event': 'trackEvent','eventDetails.category': 'outbond', 'eventDetails.action': 'click', 'eventDetails.label': 'http://www.kaskus.co.id/forum/10/berita-dan-politik'});">Forum Berita Politik</a>, <br>
+    //                           Yaitu melaporkan dan mengadukan Threads atau Posts yang melanggar UU BP Raya, maka dibuatlah thread ini.<br>
+    //                           <br>
+    //                           Adapun format pengaduan adalah sebagai berikut<br>
+    //                           <br>
+    //                           <div class="sceditor-ignore quote-mark 3035827264">Quote:</div><div class="quote expandable" data-by="" data-postid="">tret/postingan bermasalah :<br>
+    //                           alasan :</div><br>
+    //                           <br>
+    //                           dan sebagai tempat Saran, Kritikan terhadap seluruh aturan yg berlaku di BerPol<br>
+    //                           <b><br>
+    //                           <span data-attr="size" data-value="v_4" style="font-size:18px !important;">untuk mempermudah mods mengakses TKP dan tidak perlu membuka keseluruhan halaman TKP, CUKUP tulis linknya saja disini, gak perlu multiquoting dan tampilin barbuk disini.</span></b><br>
+    //                           <br>
+    //                           <div style="text-align: center;">=================<br>
+    //                           </div><br>
+    //                           <br>
+    //                           <span data-attr="size" data-value="v_5" style="font-size:20px !important;"><span data-attr="color" data-value="v_red" style="color:red !important;"><br>
+    //                           <b><div style="text-align: center;">Rules Thread Pelaporan</div><br>
+    //                           - Dilarang OOT<br>
+    //                           - Dilarang chit-chat <br>
+    //                           - Dilarang berdebat <br>
+    //                           - Dilarang insult member<br>
+    //                           - Dilarang menggangu kinerja moderator<br>
+    //                           - Dilarang Lapor pakai kloningan / Laporan tidak valid <br>
+    //                           <br>
+    //                           Hukuman? <br>
+    //                           BANNED PERMANEN!</b></span></span></span>`;
+    
 
     return (
       <>
-        {/* <div dangerouslySetInnerHTML={{ __html: sanitizeHtmlContent }} className="d-none" /> */}
+        {/* <div dangerouslySetInnerHTML={{ __html: sanitizeHtmlContent }} className="d-block" /> */}
 
         <div className='post-container'>
 
