@@ -15,6 +15,8 @@ app.use((req, res, next)=> {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, proxy-revalidate');
+    res.setHeader('Surrogate-Control', 'no-store');
     next();
 })
 
@@ -25,9 +27,15 @@ db.serialize(()=>{
 
 const userLogin = require('./api/user_login');
 const userCreate = require('./api/user_create');
+const getListThread = require('./api/get_list_thread');
+const threadCreate = require('./api/thread_create');
+const threadReply = require('./api/thread_reply');
 
 app.use('/',userLogin);
 app.use('/',userCreate);
+app.use('/',getListThread);
+app.use('/',threadCreate);
+app.use('/',threadReply);
 
 app.listen(process.env.PORT || port, () => {
     console.log('Cara PORT ',port)

@@ -11,10 +11,13 @@ import React, { useEffect, useState } from 'react'
 import { Badge, IconButton } from '@mui/material';
 import sanitizeHtml from 'sanitize-html'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const PostThread = () => {
 
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
 		const [data, setData] = useState(null);
     const [activeMenu, setActiveMenu] = useState(0);
@@ -66,8 +69,10 @@ const PostThread = () => {
 
         sessionStorage.setItem('activePage', '/posthread');
 
+        dispatch({type:'PARSE_TEXT', text:'Post Thread'})
+
         randomArrKom();
-		}, [])
+		}, [navigate, dispatch])
 
     const handleClickActive = (idx) => {
       setActiveMenu(idx);

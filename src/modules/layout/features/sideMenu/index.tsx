@@ -59,7 +59,7 @@ const SideMenu = () => {
       
 			return () => {}
 
-  },[])
+  },[dispatch, navigate])
 
 
 	const resetInput = async() => {

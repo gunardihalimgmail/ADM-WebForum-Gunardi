@@ -23,6 +23,8 @@ import { gapi } from "gapi-script";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 import ListThread from "./modules/layout/features/listThread";
+import DetailThread from "./modules/layout/features/detailThread";
+import BuatThread from "./modules/layout/features/buatThread";
 
 // export const appHistory = createBrowserHistory();
 
@@ -77,6 +79,8 @@ function App() {
                   {/* <Route index element={<MainPage />}> */}
                       <Route path="posthread" element={<PostThread />} />
                       <Route path="listhread" element={<ListThread />} />
+                      <Route path="detailthread" element={<DetailThread />} />
+                      <Route path="buathread" element={<BuatThread />} />
 
                   {/* </Route> */}
 

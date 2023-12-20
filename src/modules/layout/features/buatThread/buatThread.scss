@@ -1,0 +1,28 @@
+.bt-cont {
+    background-color: white;
+    padding:1.7rem;
+    border-radius: 10px;
+}
+
+.buat-textarea-content {
+    width:100%;
+
+    textarea {
+        width: 100%;
+    }
+}
+
+.form-group {
+    .form-label {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+  
+      &.required {
+        &::after {
+            content:' *';
+            color:red;
+        }
+      }
+    }
+  }
+  

@@ -1,4 +1,6 @@
 .list-cont {
+  position: relative;
+  display: block;
   background-color: white;
   padding-top:0.75rem;
   padding-bottom:0.75rem;
@@ -8,6 +10,7 @@
   margin-bottom: 10px;
 
   height:210px;
+  overflow:hidden;
 
   .subperiode {
     margin-bottom: 0.5rem;
@@ -54,4 +57,18 @@
 
 .page-footer {
   padding-bottom:50px
+}
+
+.list-header-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.list-button-buat {
+  width:300px;
+
+  .btn-custom-buat-thread {
+      width:100%;
+  }
 }
