@@ -74,7 +74,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm run start-react\" \"npm run start-server\"",
-    "start-server": "nodemon server.js",
+    "start-server": "node server.js",
     "start-react": "react-scripts --openssl-legacy-provider start",
     "start:https": "set HTTPS=true set SSL_CRT_FILE=./ssl_cs_crt.crt set SSL_KEY_FILE=./ssl_cs_key.key && react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",
