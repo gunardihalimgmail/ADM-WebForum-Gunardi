@@ -30,14 +30,9 @@
     }
   }
   
-//   .detail-list-content-topic {
-    //   display: -webkit-box;
-    //   overflow: hidden;
-    //   line-clamp: 3;
-    //   -webkit-line-clamp: 6;
-    //   -webkit-box-orient: vertical;
-    //   text-overflow: ellipsis;
-//   }
+  .detail-list-content-topic {
+      margin-top:20px;
+  }
   
   .detail-subtopic-cont {
     position: relative;
@@ -58,6 +53,29 @@
 
   .btn-submit-reply {
     margin-top:7px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     color: white !important;
+  }
+
+  .detail-label-reply {
+    background-image: linear-gradient(to right, #7c7c7c 73%, transparent 0%);
+    background-size: 10px 1px  ;
+    height: 2px;
+    text-align: center;
+    font-weight: bold;
+    margin:30px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        background-color: rgb(226 232 240);
+        padding-left:15px;
+        padding-right:15px;
+        font-size: 20px;
+    }
+  }
+
+  .detail-reply-message {
+    padding-bottom:30px;
   }

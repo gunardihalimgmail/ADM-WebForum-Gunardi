@@ -45,6 +45,14 @@ const SideMenu = () => {
 	const dispatch = useDispatch();
 
   useEffect(()=>{
+
+      const subscribe = store.subscribe(()=>{
+        if (store?.getState()?.['funcRed']?.['otherText']?.['text'] == 'signin')
+        {
+          setShowModal(true);
+          console.log(store.getState())
+        }
+      })
 		
 			
 			let user:any = getValueLocalStorage('ADM-USER');
@@ -57,7 +65,9 @@ const SideMenu = () => {
 					setUser('Masuk')
 			}
       
-			return () => {}
+			return () => {
+        subscribe();
+      }
 
   },[dispatch, navigate])
 

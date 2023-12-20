@@ -43,6 +43,7 @@ const ListThread = () => {
       hasilFetch(5, 0);
 
       dispatch({type:'PARSE_TEXT', text:'List Thread'})
+      dispatch({type:'OTHER_TEXT', text:''})
 
       window.history.replaceState(null,'', newActivePage)
 
@@ -92,9 +93,11 @@ const ListThread = () => {
 
       if (admuser == null)
       {
-          notify('error', 'Silahkan Login terlebih dahulu sebelum buat thread baru !')
+          notify('error', 'Silahkan Login terlebih dahulu sebelum buat thread baru !');
+          dispatch({type:'OTHER_TEXT', text:'signin'});
           return;
       } else {
+          dispatch({type:'OTHER_TEXT', text:''});
           navigate(
             {
               pathname:`/buathread`,
@@ -124,7 +127,7 @@ const ListThread = () => {
           // Array.from({length:10}).map((_,idx)=>{
             arrThreadRow.map((obj, idx)=>{
               return (
-                  <div className='list-cont' key={idx}>
+                  <div className='list-cont' key={obj?.['id'] + idx}>
                       <div className={`d-flex justify-content-between subperiode`}>
                           <div className='d-flex align-items-center'>
                               <span>{obj?.['user_id']}</span>

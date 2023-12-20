@@ -28,12 +28,14 @@ db.serialize(()=>{
 const userLogin = require('./api/user_login');
 const userCreate = require('./api/user_create');
 const getListThread = require('./api/get_list_thread');
+const getListThreadReply = require('./api/get_list_thread_reply');
 const threadCreate = require('./api/thread_create');
 const threadReply = require('./api/thread_reply');
 
 app.use('/',userLogin);
 app.use('/',userCreate);
 app.use('/',getListThread);
+app.use('/',getListThreadReply);
 app.use('/',threadCreate);
 app.use('/',threadReply);
 

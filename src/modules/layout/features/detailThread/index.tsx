@@ -6,6 +6,7 @@ import { fetchDataGlobal, formatDate, notify, secretKey } from '../../../../util
 import { IconButton, useStepContext } from '@mui/material';
 import { ArrowBack, Reply, ReplyAll, ReplyOutlined, ReplyTwoTone } from '@mui/icons-material';
 import CryptoJS from 'crypto-js';
+import { store } from '../../../../reducers';
 
 const DetailThread = () => {
 	
@@ -24,6 +25,8 @@ const DetailThread = () => {
 		const [arrThreadRow, setArrThreadRow] = useState<any[]>([]);
 		const [arrThreadRowSingle, setArrThreadRowSingle] = useState<any>({});
     const [arrThreadCount, setArrThreadCount] = useState(0);
+
+    const [arrThreadReply, setArrThreadReply] = useState<any[]>([]);
 
 		const [inputFormReply, setInputFormReply] = useState('');
 		const [statusDisabled, setStatusDisabled] = useState(false);
@@ -60,9 +63,23 @@ const DetailThread = () => {
 					setArrThreadCount(0);
 					setArrThreadRowSingle({});
 				}
+
+        hasilFetchReply();
+
 		}
 
+    const hasilFetchReply = async() => {
+        // THREAD REPLY
+        let hasil_reply = await fetchDataGlobal({id_thread_parent: id}, 'POST', 'list/thread/reply');
+        if (hasil_reply){
+          if (hasil_reply?.['result']?.['row'].length > 0){
+              setArrThreadReply([...hasil_reply?.['result']?.['row']]);
+          }
+        }
+    }
+    
     useEffect(()=> {
+
 				let newActivePage = `/detailthread?id_kategori=${id_kategori}&id_komunitas=${id_komunitas}&id=${id}`
         sessionStorage.setItem('activePage', newActivePage);
 				dispatch({type:'PARSE_TEXT', text:'Detail Thread'})
@@ -174,6 +191,9 @@ const DetailThread = () => {
 						setTimeout(()=>{
 							setStatusDisabled(false);
 							setInputFormReply('');
+
+              hasilFetchReply();
+
 							return
 						},1500)
 							
@@ -257,6 +277,40 @@ const DetailThread = () => {
 									</div>
 							)
 					}
+
+
+
+{/* RESPONSE REPLY */}
+          <div className='detail-label-reply'>
+              <span>Reply</span>
+          </div>
+
+          <div className='detail-reply-message'>
+              {
+                arrThreadReply.map((obj, idx)=>{
+                    return (
+                        <div key={obj?.['id']}>
+                            <div className='detail-list-cont'>
+                                <div className={`d-flex justify-content-between subperiode`}>
+                                    <div className='d-flex align-items-center'>
+                                        <span>{obj?.['user_id']}</span>
+                                        <span className='ml-1'>•</span>
+                                        <span className='tanggal-judul'>{formatDate(new Date(obj?.['tanggal']),'DD MMMM YYYY HH:mm:ss')}</span>
+                                    </div>
+                                </div>
+
+                                <div className='detail-list-content-topic'>
+                                      <a className='detail-subtopic-cont'>
+                                        <p className='subtopic' dangerouslySetInnerHTML={{__html: `${obj?.['content']}`}}>
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }) 
+              }
+          </div>
 			</>
   )
 }
