@@ -4,19 +4,11 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Router, Route, HashRouter, BrowserRouter, Routes, Navigate, useNavigate } from "react-router-dom";
 import Login from "./login";
 import MainPage from "./modules/main/features/utama"
-import Footer from "./layout/Footer";
-import Header from "./layout/Header";
-import Menu from "./layout/Menu";
 import modules from "./modules";
 import { RootStoreContext } from "./stores/RootStore";
 import Home from "./login/home";
 // import { createBrowserHistory } from "history";
-import PASPeriodeLalu from "./modules/agronomi/features/periodelalu";
-import PASHistory from "./modules/agronomi/features/history";
-import DetailProblemKebun from "./modules/agronomi/features/detail";
 import UbahPassword from "./login/changepassword";
-import DetailIOM from "./modules/memo/features/Detail/IOM";
-import DetailPengajuan from "./modules/memo/features/Detail/Pengajuan";
 import './App.css'
 import PostThread from "./modules/layout/features/postThread";
 import { gapi } from "gapi-script";
